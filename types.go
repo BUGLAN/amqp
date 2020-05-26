@@ -150,24 +150,24 @@ type Queue struct {
 type Publishing struct {
 	// Application or exchange specific fields,
 	// the headers exchange will inspect this field.
-	Headers Table
+	Headers Table // 头部属性，K-V结构，一般使用在Headers的交换器和绑定中，很多时候被开发者滥用用来传输一些自定义属性，其实也无可厚非。
 
 	// Properties
-	ContentType     string    // MIME content type
-	ContentEncoding string    // MIME content encoding
-	DeliveryMode    uint8     // Transient (0 or 1) or Persistent (2)
-	Priority        uint8     // 0 to 9
-	CorrelationId   string    // correlation identifier
-	ReplyTo         string    // address to to reply to (ex: RPC)
-	Expiration      string    // message expiration spec
-	MessageId       string    // message identifier
-	Timestamp       time.Time // message timestamp
-	Type            string    // message type name
-	UserId          string    // creating user id - ex: "guest"
-	AppId           string    // creating application id
+	ContentType     string    // 消息内容类型，类似于HTTP协议中的Content-Type，例如：application/json。 MIME content type
+	ContentEncoding string    // 消息内容编码，类似于MIME的内容编码，例如：gzip。	 MIME content encoding
+	DeliveryMode    uint8     // 消息的持久化模式，deliveryMode=1代表消息不持久化(nonpersistent)，deliveryMode=2代表消息持久化(persistent)。 Transient (0 or 1) or Persistent (2)
+	Priority        uint8     // 消息优先级 0 to 9
+	CorrelationId   string    // 客户端定义的用于客户端区分和标识消息的唯一标记。 correlation identifier
+	ReplyTo         string    // 回复的地址 address to to reply to (ex: RPC)
+	Expiration      string    // 消息过期时间，单位为毫秒 message expiration spec
+	MessageId       string    // 消息的唯一标识，消息中间件代理对消息接收去重的一个重要标识。 message identifier
+	Timestamp       time.Time // 消息发送时的时间戳 message timestamp
+	Type            string    // 可选的消息类型 message type name
+	UserId          string    // 可选的发布消息的用户的唯一标识。 creating user id - ex: "guest"
+	AppId           string    // 可选的发布消息的应用的唯一标识。 creating application id
 
 	// The application specific payload of the message
-	Body []byte
+	Body []byte // message payload
 }
 
 // Blocking notifies the server's TCP flow control of the Connection.  When a

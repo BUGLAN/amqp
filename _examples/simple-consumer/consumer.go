@@ -48,8 +48,8 @@ func main() {
 }
 
 type Consumer struct {
-	conn    *amqp.Connection
-	channel *amqp.Channel
+	conn    *amqp.Connection // rabbit conn
+	channel *amqp.Channel // rabbit channel
 	tag     string
 	done    chan error
 }
